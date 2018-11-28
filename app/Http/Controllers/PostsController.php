@@ -134,7 +134,7 @@ class PostsController extends Controller
             $updatePost = Post::findOrFail( $inputs['post_id']);
             $updatePost->update($inputs);
             if( $updatePost){
-                return view('posts.single',['post'=>$updatePost]);
+                return view('posts.edit',['post'=>$updatePost]);
             }else{
                 return "fail";
             }
@@ -157,6 +157,7 @@ class PostsController extends Controller
             $inputs = $request->all();
             $id=$inputs['post_id'];
             Post::destroy($id);
+            Comment::where('post_id',$id)->delete();
             return "success";
         
         }

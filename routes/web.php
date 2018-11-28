@@ -25,3 +25,10 @@ Route::post('delete', 'PostsController@destroy')->name('delete');
 Route::post('comment', 'PostsController@comment')->name('comment');
 Route::post('edit', 'PostsController@edit')->name('edit');
 Route::post('update', 'PostsController@update')->name('update');
+
+
+Route::get('facebook', function () {
+    return view('facebook');
+});
+Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'Auth\FacebookController@handleFacebookCallback');

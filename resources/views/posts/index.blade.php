@@ -102,15 +102,11 @@ hr {
                             <hr>
                         
                         <br>
-                        <br>
                         <a herf="#" color="red"         class="del"      data-post="{{$post->id}}" >Delete</i></a> - 
                         <a herf="#" class="edit float-right" class="edit"     data-post="{{$post->id}}">Edit</i></a> 
-                        <!-- <a herf="#" class="comment float-right" class="comment" data-post="{{$post->id}}">Comment</i></a> -->
                     </li>
                     <hr> 
                 @endforeach
-              
-				
 			</ul>
 		</div>
 	</div>
