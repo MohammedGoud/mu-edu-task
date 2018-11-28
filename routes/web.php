@@ -22,6 +22,6 @@ Route::get('/profile', 'ProfileController@edit');
 Route::post('update_profile', 'ProfileController@update')->name('update_profile');
 Route::post('add', 'PostsController@store')->name('add');
 Route::post('delete', 'PostsController@destroy')->name('delete');
-Route::post('comment', 'PostsController@destroy')->name('comment');
+Route::post('comment', 'PostsController@comment')->name('comment');
 Route::post('edit', 'PostsController@edit')->name('edit');
 Route::post('update', 'PostsController@update')->name('update');

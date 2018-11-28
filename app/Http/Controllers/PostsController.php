@@ -26,7 +26,8 @@ class PostsController extends Controller
     {
 
         $userId= \Auth::user()->id;
-        $posts=PosT::all();
+        $gender=\Auth::user()->gender;
+        $posts=PosT::orderBy('creation_date','DESC')->get();
         return view('posts.index',['posts'=>$posts]);
         
         //
@@ -51,37 +52,39 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            
+
             $inputs = $request->all();
             $inputs['user_id']= \Auth::user()->id;
             $inputs['creation_date']= date('Y-m-d H:i:s');
-
-            // IF Adding Post
-            if($inputs['status']=='add'){
-                $post =new Post();
-                $newPost=$post->create($inputs);
-               
-                if( $newPost){
-                    return view('posts.single',['post'=>$newPost]);
-                }else{
-                    return "fail";
-                }
-
-            // If editing Post    
-            }else{
-
-            $updatePost = Post::findOrFail( $inputs['post_id']);
-            $updatePost->update($inputs);
-            if( $updatePost){
-                return view('posts.single',['post'=>$updatePost]);
+            $post =new Post();
+            $newPost=$post->create($inputs);
+            if( $newPost){
+                return view('posts.single',['post'=>$newPost]);
             }else{
                 return "fail";
             }
-            }
-            
-           
-           
+        }
+    }
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function comment(Request $request)
+    {
+        if ($request->ajax()) {
 
+            $inputs = $request->all();
+            $inputs['user_id']= \Auth::user()->id;
+            $inputs['creation_date']= date('Y-m-d H:i:s');
+            $comment =new Comment();
+            $newComment=$comment->create($inputs);
+            if( $newComment){
+                return view('posts.comment',['comment'=>$newComment]);
+            }else{
+                return "fail";
+            }
         }
     }
 
@@ -121,9 +124,23 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if ($request->ajax()) {
+
+            $inputs = $request->all();
+            $inputs['user_id']= \Auth::user()->id;
+            $inputs['creation_date']= date('Y-m-d H:i:s');
+            $updatePost = Post::findOrFail( $inputs['post_id']);
+            $updatePost->update($inputs);
+            if( $updatePost){
+                return view('posts.single',['post'=>$updatePost]);
+            }else{
+                return "fail";
+            }
+           
+
+        }
     }
 
     /**
